@@ -1,3 +1,3 @@
-Analysis failed for SonarQube project "", version 
-- Product projects: 0, test projects: 0
-- Invalid projects: 0, skipped projects: 0, excluded projects: 0
+Analysis succeeded for SonarQube project "", version  [Analysis results](https://sonarcloud.io/dashboard/index/purringmachine)
+- Product projects: 1, test projects: 1
+- Invalid projects: 0, skipped projects: 1, excluded projects: 0
