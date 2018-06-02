@@ -48,15 +48,23 @@ namespace PurringMachine.Models
         {
             if (fromLeft)
             {
-                for (int i = 0; i < tape.Count(); i++)
-                    if (tape.ElementAt(i) != EMPTY_SYMBOL)
+                for (int i = 0; i < tape.Count; i++)
+                {
+                    if (tape[i] != EMPTY_SYMBOL)
+                    {
                         return i;
+                    }
+                }
             }
             else
             {
-                for (int i = tape.Count() - 1; i >= 0; i--)
-                    if (tape.ElementAt(i) != EMPTY_SYMBOL)
+                for (int i = tape.Count - 1; i >= 0; i--)
+                {
+                    if (tape[i] != EMPTY_SYMBOL)
+                    {
                         return i;
+                    }
+                }
             }
 
             return NO_TAPE;
@@ -70,9 +78,13 @@ namespace PurringMachine.Models
         public void AddTapeData(char symbol, bool toEnd)
         {
             if (toEnd)
+            {
                 tape.Add(symbol);
+            }
             else
+            {
                 tape.Insert(0, symbol);
+            }
         }
 
         public void ClearTape()
@@ -81,12 +93,13 @@ namespace PurringMachine.Models
             currentPositionOnTape = NO_TAPE;
         }
 
-
         public void Run()
         {
             currentPositionOnTape = FindFirstNonEmptyElement(startFromLeft);
             if (currentPositionOnTape == NO_TAPE)
+            {
                 return;
+            }
 
             while (!IsFinished())
             {
@@ -98,7 +111,7 @@ namespace PurringMachine.Models
         {
             try
             {
-                Instruction instruction = instructions.Where(i => i.symbol == tape[currentPositionOnTape] && i.state == currentState).First();
+                Instruction instruction = instructions.First(i => i.symbol == tape[currentPositionOnTape] && i.state == currentState);
                 tape[currentPositionOnTape] = instruction.symbolToWrite;
                 currentState = instruction.nextState;
                 Move(instruction.movement);
@@ -114,20 +127,28 @@ namespace PurringMachine.Models
             switch (move)
             {
                 case Movement.R:
+                {
+                    currentPositionOnTape++;
+                    if (currentPositionOnTape == tape.Count)
                     {
-                        currentPositionOnTape++;
-                        if (currentPositionOnTape == tape.Count())
-                            AddTapeData(EMPTY_SYMBOL, true);
-                        break;
+                        AddTapeData(EMPTY_SYMBOL, true);
                     }
+
+                    break;
+                }
                 case Movement.L:
+                {
+                    if (currentPositionOnTape > 0)
                     {
-                        if (currentPositionOnTape > 0)
-                            currentPositionOnTape--;
-                        else
-                            AddTapeData(EMPTY_SYMBOL, false);
-                        break;
+                        currentPositionOnTape--;
                     }
+                    else
+                    {
+                        AddTapeData(EMPTY_SYMBOL, false);
+                    }
+
+                    break;
+                }
             }
         }
 
@@ -157,7 +178,7 @@ namespace PurringMachine.Models
             return currentState == NEUTRAL_FINISH_STATE_SYMBOL;
         }
 
-        public List<char> getTape()
+        public List<char> GetTape()
         {
             return tape;
         }
