@@ -1,6 +1,10 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    letter-spacing: 5px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 500;
+    font-size: 2rem;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -66,14 +70,35 @@ table#statesTable, th, td {
     text-align:center;
     padding: 5px;
     border-radius: 5px;
-    letter-spacing: 5px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-weight: 500;
-    font-size: 2rem;
 }
 
 .square {
     padding:0px !important;
-    font-size: 2rem;
-    font-weight: 500;
+}
+
+#instructions-table {
+    text-align: center;
+    font-size: 15px;
+    letter-spacing: normal;
+}
+
+th {
+    text-align: center;
+    border-color: gray;
+}
+
+td {
+    border-color: gray;
+}
+
+.state{
+    font-weight: bold;
+}
+
+.alphabet{
+    font-weight: bold;
+}
+
+.invalid{
+    color: red;
 }

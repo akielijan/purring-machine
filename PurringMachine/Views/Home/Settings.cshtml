@@ -1,4 +1,96 @@
 ﻿@{
-    ViewBag.Title = "Purring Turing";
+    ViewBag.Title = "Purring Turing - settings";
 }
 
+
+<div class="row" style="height:5%;"></div>
+
+<div class="row" style="height:5%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        Tape data:
+    </div>
+    <div class="col-md-2 col-xs-2"></div>
+</div>
+
+<div class="row" style="height:10%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        <input type="text"/>
+    </div>
+    <div class="col-md-2 col-xs-2"></div>
+</div>
+
+<div class="row" style="height:5%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        Instructions:
+    </div>
+    <div class="col-md-2 col-xs-2"></div>
+</div>
+
+<div class="row" style="height:40%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        <table id="instructions-table" style="width:100%">
+            <tr>
+                <th></th>
+                <td class="state">q0</td>
+                <td class="state">q1</td>
+            </tr>
+            <tr>
+                <td class="alphabet">#</td>
+                <td># q0 L</td>
+                <td>1 SK L</td>
+            </tr>
+            <tr>
+                <td class="alphabet">0</td>
+                <td>1 SK L</td>
+                <td>1 SK L</td>
+            </tr>
+            <tr>
+                <td class="alphabet">1</td>
+                <td>0 q1 L</td>
+                <td>0 q1 L</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-2 col-xs-2"></div>
+</div>
+
+<div class="row" style="height:10%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-4 col-xs-4" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        <a id="addRowButton" href="#0" class="button">
+            <span>+ Row</span>
+        </a>
+    </div>
+    <div class="col-md-4 col-xs-4" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        <a id="addColButton" href="#0" class="button">
+            <span>+ Col</span>
+        </a>
+    </div>
+    <div class="col-md-2 col-xs-2"></div>
+</div>
+
+<div class="row" style="height:10%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        <a href="#0" class="button">
+            <span>Help</span>
+        </a>
+    </div>
+    <div class="col-md-2 col-xs-2"></div>
+</div>
+
+<div class="row" style="height:10%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        <a href="#0" class="button">
+            <span>Save</span>
+        </a>
+    </div>
+    <div class="col-md-2 col-xs-2"></div>
+</div>
+
+<div class="row" style="height:5%;"></div>
