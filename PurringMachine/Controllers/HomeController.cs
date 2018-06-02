@@ -67,7 +67,7 @@ namespace PurringMachine.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveSettings(List<string> instructions, bool fromLeft)
+        public ActionResult SaveSettings(string instructions, bool fromLeft)
         {
             LoadMachineState();
             machine.SetInstructions(ParseInstructions(instructions), fromLeft);
@@ -75,14 +75,9 @@ namespace PurringMachine.Controllers
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
-        private List<Instruction> ParseInstructions(List<string> instructions)
+        private List<Instruction> ParseInstructions(string instructions)
         {
-            List<Instruction> inst = new List<Instruction>();
-            foreach (var instruction in instructions)
-            {
-                inst.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<Instruction>(instruction));
-            }
-            return inst;
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<List<Instruction>>(instructions);
         }
 
         private List<Instruction> GetDefaultInstructionSet()

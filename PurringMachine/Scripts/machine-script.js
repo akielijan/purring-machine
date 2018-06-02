@@ -94,29 +94,42 @@ $('#nextStep').on('click', function () {
 });
 
 $('#saveSettings').on('click', function () {
-    var instructionList = parseTable('#instructions-table');
+    var instructionList = parseTableRows('#instructions-table');
+    var d = {
+        "instructions": JSON.stringify(instructionList),
+        "fromLeft": true
+    };
+    console.log(d);
     $.post({
         url: '/Home/SaveSettings',
-        data: {
-            instructions: instructionList, fromLeft: true },
+        dataType: "json",
+        data: d,
         success: function (data, textStatus, xhr) {
             console.log(data.Data);
         }
     });
 });
 
-function parseTable(tableSelector) {
-    var table = $(tableSelector);
-    //todo: populate data
+function parseTableRows(tableSelector) {
+    var table = $(tableSelector + " tr"); //table tr selector
     var list = [];
-    for (var i = 0; i < table.length; i++) {
-        list.push({
-            "symbol": 'a',
-            "state": "q0",
-            "symbolToWrite": 'b',
-            "nextState": "q1",
-            "movement": "L"
-        });
-    }
+    var colCount = $(tableSelector).find("tr:first td").length;
+    table.each(function () {
+        if (!this.rowIndex) return; // skip first row
+        var row = this;
+        var symbol = row.cells[0].innerText;
+        for (var i = 1; i <= colCount; ++i) { //because first column is <th> instead of <td>
+            var state = table[0].cells[i].innerText;
+            var instr = row.cells[i].innerText.split(" ");
+            list.push({
+                "symbol": symbol,
+                "state": state,
+                "symbolToWrite": instr[0],
+                "nextState": instr[1],
+                "movement": instr[2]
+            });
+        }
+    });
+    console.log(list);
     return list;
 }
