@@ -70,7 +70,7 @@ namespace PurringMachine.Models
             return NO_TAPE;
         }
 
-        public void SetTapeData(List<char> data)
+        public void SetTapeData(IEnumerable<char> data)
         {
             tape = new List<char>(data);
         }
@@ -95,7 +95,7 @@ namespace PurringMachine.Models
 
         public void Run()
         {
-            currentPositionOnTape = FindFirstNonEmptyElement(startFromLeft);
+            Reset();
             if (currentPositionOnTape == NO_TAPE)
             {
                 return;
