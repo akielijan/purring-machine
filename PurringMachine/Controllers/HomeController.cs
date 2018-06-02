@@ -19,7 +19,7 @@ namespace PurringMachine.Controllers
             if (machine == null)
             {
                 machine = new Machine();
-                bool fromLeft = false;
+                const bool fromLeft = false;
                 machine.SetInstructions(GetDefaultInstructionSet(), fromLeft);
                 machine.SetTapeData("1111");
                 machine.Reset();
@@ -38,7 +38,6 @@ namespace PurringMachine.Controllers
         public ActionResult RunMachine()
         {
             LoadMachineState();
-            //todo: settings view should set up the instruction set and initial 
             machine.Run();
             SaveMachineState();
             return Json(new { Data = new string(machine.GetTape().ToArray()) }, JsonRequestBehavior.AllowGet);
@@ -48,8 +47,6 @@ namespace PurringMachine.Controllers
         public ActionResult ResetMachine()
         {
             LoadMachineState();
-            //todo: settings view should set up the instruction set and initial 
-
             machine.Reset();
             SaveMachineState();
             return new HttpStatusCodeResult(HttpStatusCode.OK);
@@ -59,15 +56,33 @@ namespace PurringMachine.Controllers
         public ActionResult NextStep()
         {
             LoadMachineState();
-            //todo: settings view should set up the instruction set and initial 
             if (machine.IsFinished())
             {
-                throw new NotSupportedException("Machine has already stopped!");
+                return Json(new { Data = "The machine has stopped", Success = false}, JsonRequestBehavior.AllowGet);
             }
 
             machine.ProcessInstruction();
             SaveMachineState();
-            return Json(new { Data = new string(machine.GetTape().ToArray()) }, JsonRequestBehavior.AllowGet);
+            return Json(new { Data = new string(machine.GetTape().ToArray()), Success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SaveSettings(List<string> instructions, bool fromLeft)
+        {
+            LoadMachineState();
+            machine.SetInstructions(ParseInstructions(instructions), fromLeft);
+            SaveMachineState();
+            return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<Instruction> ParseInstructions(List<string> instructions)
+        {
+            List<Instruction> inst = new List<Instruction>();
+            foreach (var instruction in instructions)
+            {
+                inst.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<Instruction>(instruction));
+            }
+            return inst;
         }
 
         private List<Instruction> GetDefaultInstructionSet()

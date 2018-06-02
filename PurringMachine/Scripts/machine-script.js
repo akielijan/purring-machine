@@ -8,7 +8,7 @@
 
         if ($(this).hasClass("state")) {
             if (!statePattern.test(newValue)) {
-                $(this).addClass("invalid")
+                $(this).addClass("invalid");
             }
             else {
                 $(this).removeClass("invalid");
@@ -68,8 +68,8 @@
 $('#run').on('click', function () {
     $.get({
         url: '/Home/RunMachine',
-        success: function (retval) {
-            console.log(retval.Data);
+        success: function (data, textStatus, xhr) {
+            console.log(data.Data);
         }
     });
 });
@@ -87,7 +87,36 @@ $('#nextStep').on('click', function () {
     $.get({
         url: '/Home/NextStep',
         success: function (data, textStatus, xhr) {
-            console.log("success: " + xhr.status);
+            console.log(data.Data);
+            //if (!data.Success) -> do smth when machine has stopped
         }
     });
 });
+
+$('#saveSettings').on('click', function () {
+    var instructionList = parseTable('#instructions-table');
+    $.post({
+        url: '/Home/SaveSettings',
+        data: {
+            instructions: instructionList, fromLeft: true },
+        success: function (data, textStatus, xhr) {
+            console.log(data.Data);
+        }
+    });
+});
+
+function parseTable(tableSelector) {
+    var table = $(tableSelector);
+    //todo: populate data
+    var list = [];
+    for (var i = 0; i < table.length; i++) {
+        list.push({
+            "symbol": 'a',
+            "state": "q0",
+            "symbolToWrite": 'b',
+            "nextState": "q1",
+            "movement": "L"
+        });
+    }
+    return list;
+}
