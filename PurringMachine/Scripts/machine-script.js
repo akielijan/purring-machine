@@ -64,7 +64,6 @@
         $('#instructions-table').editableTableWidget();
     });
 });
-});
 
 $('#run').on('click', function () {
     $.get({
