@@ -7,11 +7,11 @@ namespace PurringMachine.Models
 {
     public class PurringMachine
     {
-        private static readonly string NEUTRAL_FINISH_STATE_SYMBOL = "SK";
-        private static readonly string POSITIVE_FINISH_STATE_SYMBOL = "SA";
-        private static readonly string NEGATIVE_FINISH_STATE_SYMBOL = "SN";
-        private static readonly string START_STATE_SYMBOL = "q0";
-        private static readonly char EMPTY_SYMBOL = '#';
+        public static readonly string NEUTRAL_FINISH_STATE_SYMBOL = "SK";
+        public static readonly string POSITIVE_FINISH_STATE_SYMBOL = "SA";
+        public static readonly string NEGATIVE_FINISH_STATE_SYMBOL = "SN";
+        public static readonly string START_STATE_SYMBOL = "q0";
+        public static readonly char EMPTY_SYMBOL = '#';
         private static readonly int NO_TAPE = -1;
 
         private string currentState;

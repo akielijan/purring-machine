@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PurringMachine.Models;
+using Machine = PurringMachine.Models.PurringMachine;
 
 namespace PurringMachine.Controllers
 {
@@ -11,6 +13,15 @@ namespace PurringMachine.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public void RunPurringMachine()
+        {
+            Machine machine = new Machine();
+            machine.SetInstructions(new List<Instruction>(), true);
+            machine.SetTapeData("".ToList());
+
+            machine.Run();
         }
     }
 }

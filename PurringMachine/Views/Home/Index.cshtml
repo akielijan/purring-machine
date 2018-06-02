@@ -15,6 +15,30 @@
 
 <div class="row" style="height:65%;">
     <div class="col-md-12 col-xs-12">
+        <label for="tapeData">Insert tape data:</label>
+        <input type="text" name="tapeData"/>
 
+        <button id="runMachine">Run machine</button>
+
+        <table id="statesTable" style="border: 1px solid black;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="state">q<sub>0</sub></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@PurringMachine.Models.PurringMachine.EMPTY_SYMBOL</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>a</td>
+                    <td>b q0 L</td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="addState">Add state</button>
+        <button id="addSymbol">Add symbol</button>
     </div>
 </div>
