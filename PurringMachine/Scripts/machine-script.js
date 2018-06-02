@@ -95,9 +95,12 @@ $('#nextStep').on('click', function () {
 
 $('#saveSettings').on('click', function () {
     var instructionList = parseTableRows('#instructions-table');
+    var fromLeft = $("input:radio[name='radio-group']:checked").val(); //todo: actually get the value from the page
+    var inputData = $('#inputData').val(); //todo: actually get the value of the input
     var d = {
         "instructions": JSON.stringify(instructionList),
-        "fromLeft": true
+        "input": inputData,
+        "fromLeft": (fromLeft === "left")
     };
     console.log(d);
     $.post({

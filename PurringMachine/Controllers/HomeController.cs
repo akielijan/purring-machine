@@ -67,10 +67,11 @@ namespace PurringMachine.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveSettings(string instructions, bool fromLeft)
+        public ActionResult SaveSettings(string instructions, string input, bool fromLeft)
         {
             LoadMachineState();
             machine.SetInstructions(ParseInstructions(instructions), fromLeft);
+            machine.SetTapeData(input);
             SaveMachineState();
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
