@@ -15,6 +15,11 @@ namespace PurringMachine.Controllers
             return View();
         }
 
+        public ActionResult Settings()
+        {
+            return View();
+        }
+
         public void RunPurringMachine()
         {
             Machine machine = new Machine();
