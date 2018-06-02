@@ -6,39 +6,87 @@
 <div class="row" style="height:5%;"></div>
 
 <div class="row" style="height:20%;">
-    <div class="col-md-12 col-xs-12" style="text-align: center">
-        <img src="~/Content/Img/PurringTuringLogo.png" alt="Logo" style="margin-left:auto; margin-right: auto; width:66%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-8 col-xs-8" style="text-align: center">
+        <img src="~/Content/Img/PurringTuringLogo.png" alt="Logo" style="margin-left:auto; margin-right: auto; width:100%;">
     </div>
+    <div class="col-md-2 col-xs-2"></div>
 </div>
 
-<div class="row" style="height:10%;"></div>
+<div class="row" style="height:5%;"></div>
 
-<div class="row" style="height:65%;">
-    <div class="col-md-12 col-xs-12">
-        <label for="tapeData">Insert tape data:</label>
-        <input type="text" name="tapeData"/>
-
-        <button id="runMachine">Run machine</button>
-
-        <table id="statesTable" style="border: 1px solid black;">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th class="state">q<sub>0</sub></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@PurringMachine.Models.PurringMachine.EMPTY_SYMBOL</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>a</td>
-                    <td>b q0 L</td>
-                </tr>
-            </tbody>
-        </table>
-        <button id="addState">Add state</button>
-        <button id="addSymbol">Add symbol</button>
+<div class="row" style="height:10%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-8 col-xs-8"  style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        <a href="#0" class="button">
+            <span>Settings</span>
+        </a>
     </div>
+    <div class="col-md-2 col-xs-2"></div>
 </div>
+
+<div class="row" style="height:5%;"></div>
+
+<div class="row" style="height:15%; display:flex; align-items: center;">
+    <div class="col-md-1 col-xs-1 square" style="border: 2px solid white; height: 100%; border-right: 0; border-left: 0"></div>
+    <div class="col-md-2 col-xs-2 square" style="border: 2px solid white; height: 100%; border-right: 0;">
+        <div style="display: flex; align-items: center; height: 100%; justify-content: center">
+            <div>#</div>
+        </div>
+    </div>
+    <div class="col-md-2 col-xs-2 square" style="border: 2px solid white; height: 100%; border-right: 0;">
+        <div style="display: flex; align-items: center; height: 100%; justify-content: center">
+            <div>1</div>
+        </div>
+    </div>
+
+    <div class="col-md-2 col-xs-2 square rainbow-div" style="height: 100%;">
+         <div style="display: flex; align-items: center; height: 100%; justify-content: center">
+            <div>1</div> <!--middle-->
+         </div>
+    </div>
+
+    <div class="col-md-2 col-xs-2 square" style="border: 2px solid white; height: 100%; border-left: 0;">
+        <div style="display: flex; align-items: center; height: 100%; justify-content: center">
+            <div>0</div>
+        </div>
+    </div>
+    <div class="col-md-2 col-xs-2 square" style="border: 2px solid white; height: 100%; border-left: 0;">
+        <div style="display: flex; align-items: center; height: 100%; justify-content: center">
+            <div>#</div>
+        </div>
+    </div>
+    <div class="col-md-1 col-xs-1 square" style="border: 2px solid white; height: 100%; border-left: 0; border-right: 0;"></div>
+</div>
+
+<div class="row" style="height:5%;"></div>
+
+<div class="row" style="height:10%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        <a href="#0" class="button">
+            <span>Next</span>
+        </a>
+    </div>
+    <div class="col-md-2 col-xs-2"></div>
+</div>
+<div class="row" style="height:10%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        <a href="#0" class="button">
+            <span>Run</span>
+        </a>
+    </div>
+    <div class="col-md-2 col-xs-2"></div>
+</div>
+<div class="row" style="height:10%;">
+    <div class="col-md-2 col-xs-2"></div>
+    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+        <a href="#0" class="button">
+            <span>Reset</span>
+        </a>
+    </div>
+    <div class="col-md-2 col-xs-2"></div>
+</div>
+
+<div class="row" style="height:5%;"></div>

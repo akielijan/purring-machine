@@ -26,3 +26,54 @@ textarea {
 table#statesTable, th, td {
     border: 1px solid black;
 }
+
+.rainbow-div{
+    border: 2px solid black;
+    border-radius: 7px;
+    -webkit-animation: rbd 1s linear infinite alternate;
+    animation: rbd 1s linear infinite alternate;
+}
+
+.rainbow-text {
+  animation: rbf 1s linear infinite alternate;
+}
+
+@keyframes rbf {
+    0%{color: rgb(255,0,0);}
+    50%{color: rgb(0,255,0);}
+    100%{color: rgb(0,0,255);}
+}
+
+@keyframes rbd {
+    0%{border-color: rgb(255,0,0);}
+    50%{border-color: rgb(0,255,0);}
+    100%{border-color: rgb(0,0,255);}
+}
+
+.button {
+    width:100%;
+    background-image: linear-gradient(90deg, #00C0FF 0%, #FFCF00 49%, #FC4F4F 100%);
+    position: relative;
+    padding: 2px;
+    display: inline-block;
+    border-radius: 7px;   
+}
+.button > span {
+    width:100%;
+    display: inline-block;
+    background: white;
+    color: black;
+    text-align:center;
+    padding: 5px;
+    border-radius: 5px;
+    letter-spacing: 5px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 500;
+    font-size: 2rem;
+}
+
+.square {
+    padding:0px !important;
+    font-size: 2rem;
+    font-weight: 500;
+}
