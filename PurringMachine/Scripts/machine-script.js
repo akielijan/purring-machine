@@ -137,16 +137,24 @@ function parseTableRows(tableSelector) {
         if (!this.rowIndex) return; // skip first row
         var row = this;
         var symbol = row.cells[0].innerText;
-        for (var i = 1; i < colCount; ++i) { //because first column is <th> instead of <td>
+        if (symbol === '-') return; //remove row
+
+        for (var i = 1; i < colCount; ++i) { 
             var state = tableRows[0].cells[i].innerText;
-            var instr = row.cells[i].innerText.split(" ");
-            list.push({
+            if (state === '-') continue; //skip column
+
+            var cellData = row.cells[i].innerText;
+            if (cellData === '-') continue; //skip instruction
+
+            var instrData = cellData.split(" ");
+            var obj = {
                 "symbol": symbol,
                 "state": state,
-                "symbolToWrite": instr[0],
-                "nextState": instr[1],
-                "movement": instr[2]
-            });
+                "symbolToWrite": instrData[0],
+                "nextState": instrData[1],
+                "movement": instrData[2]
+            }
+            list.push(obj);
         }
     });
     console.log(list);
@@ -154,9 +162,9 @@ function parseTableRows(tableSelector) {
 }
 
 function validateInstruction(evt, newValue) {
-    var statePattern = /^[a-zA-Z0-9]{1,4}$/;
-    var alphabetPattern = /^[a-zA-Z0-9#]$/;
-    var instructionPattern = /^[a-zA-Z0-9#]\s(\S){1,4}\s(L|R|N)$/;
+    var statePattern = /^[a-zA-Z0-9]{1,4}|-$/;
+    var alphabetPattern = /^[a-zA-Z0-9#]|-$/;
+    var instructionPattern = /^[a-zA-Z0-9#]\s(\S){1,4}\s(L|R|N)|-$/;
 
     var pattern;
 
