@@ -1,7 +1,14 @@
 ﻿$(document).ready(function () {
     $('#instructions-table').editableTableWidget();
 
-    $("*").on("click", function () { $('audio')[0].play(); });
+    $("#logo").on("click", function () {
+        var audio = $('audio')[0];
+        if (audio.paused == false) {
+            audio.pause();
+        } else {
+            audio.play();
+        }
+    });
 
     $('#inputData').on('change', function(e) {
         var tapePattern = /^[a-zA-Z0-9#]+$/;
