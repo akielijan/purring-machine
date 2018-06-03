@@ -71,6 +71,9 @@ table#statesTable, th, td {
     padding: 5px;
     border-radius: 5px;
 }
+.button:focus {
+    outline: none;
+}
 
 .square {
     padding:0px !important;
