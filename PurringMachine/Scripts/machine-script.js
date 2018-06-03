@@ -168,7 +168,6 @@ function parseTableRows(tableSelector) {
             if (state === '-') continue; //skip column
 
             var cellData = row.cells[i].innerText;
-            if (cellData === '-') continue; //skip instruction
 
             var instrData = cellData.split(" ");
             var obj = {
