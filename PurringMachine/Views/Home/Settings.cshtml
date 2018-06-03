@@ -123,7 +123,7 @@
     <div class="row" style="height:10%;">
         <div class="col-md-2 col-xs-2"></div>
         <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
-            <a href="#0" class="button">
+            <a href="#0" class="button" data-toggle="modal" data-target="#myModal">
                 <span>Help</span>
             </a>
         </div>
@@ -141,3 +141,45 @@
     </div>
 
     <div class="row" style="height:5%;"></div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Help</h4>
+            </div>
+            <div class="modal-body" style="font-size: 15px; letter-spacing: normal; font-family: serif">
+                <p>
+                    <b>1. Allowed symbols | length:</b><br />
+                    a) alphabet - a-z, A-Z, 0-9, # | 1<br />
+                    b) state - a-z, A-Z, 0-9 | 1-4<br />
+                    c) move - L, R, N | 1<br />
+                </p>
+                <p>
+                    <b>2. Specials:</b><br />
+                    a) # - empty symbol ∈ alphabet<br />
+                    b) SK - neutral finish state ∈ states<br />
+                    c) SA - positive finish state ∈ states<br />
+                    d) SN - negative finish state ∈ states<br />
+                </p>
+                <p>
+                    <b>3. Instruction table:</b><br />
+                    a) First column - symbol on tape ∈ alphabet<br />
+                    b) First row - states ∈ state<br />
+                    c) Other cells - instructions for specified state and symbol on tape<br />
+                </p>
+                <p>
+                    <b>4. Instructions:</b><br/>
+                    Format: a qN m<br />
+                    a - symbol to write on tape ∈ alphabet<br />
+                    qN - next state for machine ∈ states<br />
+                    m - movement to do ∈ move<br />
+                    spaces - only one, single, white character, nothing more<br />
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
