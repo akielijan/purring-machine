@@ -1,5 +1,10 @@
 ﻿@{
     ViewBag.Title = "Purring Turing";
+    PurringMachine.Models.PurringMachine machine = Session["Machine"] as PurringMachine.Models.PurringMachine;
+    if (machine == null)
+    {
+        Session["Machine"] = machine = PurringMachine.Models.PurringMachine.GetDefaultMachine();
+    }
 }
 
 <div class="row" style="height:5%;"></div>
@@ -26,33 +31,58 @@
 
 <div class="row" style="height:5%;"></div>
 
+@{ 
+    List<char> tapeData;
+    int charCount = 5;
+    if (machine.CurrentPositionOnTape == PurringMachine.Models.PurringMachine.NO_TAPE)
+    {
+        tapeData = new string('#', charCount).ToList();
+    }
+    else
+    {
+        tapeData = new List<char>();
+        for(int i=0; i<charCount/2; ++i )
+        {
+            machine.Move(PurringMachine.Models.Movement.L);
+        }
+        for(int i=0; i<charCount; ++i)
+        {
+            tapeData.Add(machine.Tape[machine.CurrentPositionOnTape]);
+            machine.Move(PurringMachine.Models.Movement.R);
+        }
+        for (int i = 0; i < charCount / 2 + 1; ++i)
+        {
+            machine.Move(PurringMachine.Models.Movement.L);
+        }
+    }
+}
 <div class="row" style="height:15%; display:flex; align-items: center;">
     <div class="col-md-1 col-xs-1 square" style="border: 2px solid white; height: 100%; border-right: 0; border-left: 0"></div>
     <div class="col-md-2 col-xs-2 square" style="border: 2px solid white; height: 100%; border-right: 0;">
         <div style="display: flex; align-items: center; height: 100%; justify-content: center">
-            <div>#</div>
+            <div id="tapeSymbol0">@tapeData[0]</div>
         </div>
     </div>
     <div class="col-md-2 col-xs-2 square" style="border: 2px solid white; height: 100%; border-right: 0;">
         <div style="display: flex; align-items: center; height: 100%; justify-content: center">
-            <div>1</div>
+            <div id="tapeSymbol1">@tapeData[1]</div>
         </div>
     </div>
 
     <div class="col-md-2 col-xs-2 square rainbow-div" style="height: 100%;">
          <div style="display: flex; align-items: center; height: 100%; justify-content: center">
-            <div>1</div> <!--middle-->
+            <div id="tapeSymbol2">@tapeData[2]</div> <!--middle-->
          </div>
     </div>
 
     <div class="col-md-2 col-xs-2 square" style="border: 2px solid white; height: 100%; border-left: 0;">
         <div style="display: flex; align-items: center; height: 100%; justify-content: center">
-            <div>0</div>
+            <div id="tapeSymbol3">@tapeData[3]</div>
         </div>
     </div>
     <div class="col-md-2 col-xs-2 square" style="border: 2px solid white; height: 100%; border-left: 0;">
         <div style="display: flex; align-items: center; height: 100%; justify-content: center">
-            <div>#</div>
+            <div id="tapeSymbol4">@tapeData[4]</div>
         </div>
     </div>
     <div class="col-md-1 col-xs-1 square" style="border: 2px solid white; height: 100%; border-left: 0; border-right: 0;"></div>

@@ -12,10 +12,10 @@ namespace PurringMachine.Models
         public static readonly string NEGATIVE_FINISH_STATE_SYMBOL = "SN";
         public static readonly string START_STATE_SYMBOL = "q0";
         public static readonly char EMPTY_SYMBOL = '#';
-        private static readonly int NO_TAPE = -1;
+        public static readonly int NO_TAPE = -1;
 
         private string currentState;
-        private int currentPositionOnTape;
+        public int CurrentPositionOnTape { get; private set; }
         public List<char> Tape { get; private set; }
         public List<Instruction> Instructions { get; private set; }
         public bool StartFromLeft { get; private set; }
@@ -30,7 +30,7 @@ namespace PurringMachine.Models
             currentState = START_STATE_SYMBOL;
             Instructions = new List<Instruction>();
             Tape = new List<char>();
-            currentPositionOnTape = NO_TAPE;
+            CurrentPositionOnTape = NO_TAPE;
         }
 
         public void SetInstructions(List<Instruction> i, bool fromLeft)
@@ -90,13 +90,13 @@ namespace PurringMachine.Models
         public void ClearTape()
         {
             Tape.Clear();
-            currentPositionOnTape = NO_TAPE;
+            CurrentPositionOnTape = NO_TAPE;
         }
 
         public void Run()
         {
             Reset();
-            if (currentPositionOnTape == NO_TAPE)
+            if (CurrentPositionOnTape == NO_TAPE)
             {
                 return;
             }
@@ -111,8 +111,8 @@ namespace PurringMachine.Models
         {
             try
             {
-                Instruction instruction = Instructions.First(i => i.symbol == Tape[currentPositionOnTape] && i.state == currentState);
-                Tape[currentPositionOnTape] = instruction.symbolToWrite;
+                Instruction instruction = Instructions.First(i => i.symbol == Tape[CurrentPositionOnTape] && i.state == currentState);
+                Tape[CurrentPositionOnTape] = instruction.symbolToWrite;
                 currentState = instruction.nextState;
                 Move(instruction.movement);
             }
@@ -128,8 +128,8 @@ namespace PurringMachine.Models
             {
                 case Movement.R:
                 {
-                    currentPositionOnTape++;
-                    if (currentPositionOnTape == Tape.Count)
+                    CurrentPositionOnTape++;
+                    if (CurrentPositionOnTape == Tape.Count)
                     {
                         AddTapeData(EMPTY_SYMBOL, true);
                     }
@@ -138,9 +138,9 @@ namespace PurringMachine.Models
                 }
                 case Movement.L:
                 {
-                    if (currentPositionOnTape > 0)
+                    if (CurrentPositionOnTape > 0)
                     {
-                        currentPositionOnTape--;
+                        CurrentPositionOnTape--;
                     }
                     else
                     {
@@ -155,7 +155,7 @@ namespace PurringMachine.Models
         public void Reset()
         {
             currentState = START_STATE_SYMBOL;
-            currentPositionOnTape = FindFirstNonEmptyElement(StartFromLeft);
+            CurrentPositionOnTape = FindFirstNonEmptyElement(StartFromLeft);
         }
 
         public bool IsFinished()
