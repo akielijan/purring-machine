@@ -127,28 +127,28 @@ namespace PurringMachine.Models
             switch (move)
             {
                 case Movement.R:
-                {
-                    CurrentPositionOnTape++;
-                    if (CurrentPositionOnTape == Tape.Count)
                     {
-                        AddTapeData(EMPTY_SYMBOL, true);
-                    }
+                        CurrentPositionOnTape++;
+                        if (CurrentPositionOnTape == Tape.Count)
+                        {
+                            AddTapeData(EMPTY_SYMBOL, true);
+                        }
 
-                    break;
-                }
+                        break;
+                    }
                 case Movement.L:
-                {
-                    if (CurrentPositionOnTape > 0)
                     {
-                        CurrentPositionOnTape--;
-                    }
-                    else
-                    {
-                        AddTapeData(EMPTY_SYMBOL, false);
-                    }
+                        if (CurrentPositionOnTape > 0)
+                        {
+                            CurrentPositionOnTape--;
+                        }
+                        else
+                        {
+                            AddTapeData(EMPTY_SYMBOL, false);
+                        }
 
-                    break;
-                }
+                        break;
+                    }
             }
         }
 
@@ -184,7 +184,7 @@ namespace PurringMachine.Models
             return Tape;
         }
 
-        private static List<Instruction> GetDefaultInstructionSet()
+        private static List<Instruction> GetIncrementBinaryValueInstructionSet()
         {
             return new List<Instruction>
             {
@@ -198,11 +198,125 @@ namespace PurringMachine.Models
             };
         }
 
+        private static List<Instruction> GetDoubleCharactersInTapeInstructionSet()
+        {
+            return new List<Instruction>
+            {
+                new Instruction('#',"q0",'#',"q0",Movement.R),
+                new Instruction('a',"q0",'#',"q1",Movement.R),
+                new Instruction('b',"q0",'#',"q7",Movement.R),
+
+                new Instruction('#',"q1",'#',"q2",Movement.R),
+                new Instruction('a',"q1",'a',"q1",Movement.R),
+                new Instruction('b',"q1",'b',"q1",Movement.R),
+
+                new Instruction('#',"q2",'a',"q3",Movement.R),
+                new Instruction('a',"q2",'a',"q2",Movement.R),
+                new Instruction('b',"q2",'b',"q2",Movement.R),
+
+                new Instruction('#',"q3",'a',"q4",Movement.L),
+                new Instruction('a',"q3",'a',"SK",Movement.R),
+                new Instruction('b',"q3",'b',"SK",Movement.R),
+
+                new Instruction('#',"q4",'#',"q5",Movement.L),
+                new Instruction('a',"q4",'a',"q4",Movement.L),
+                new Instruction('b',"q4",'b',"q4",Movement.L),
+
+                new Instruction('#',"q5",'#',"SK",Movement.R),
+                new Instruction('a',"q5",'a',"q6",Movement.L),
+                new Instruction('b',"q5",'b',"q6",Movement.L),
+
+                new Instruction('#',"q6",'#',"q0",Movement.R),
+                new Instruction('a',"q6",'a',"q6",Movement.L),
+                new Instruction('b',"q6",'b',"q6",Movement.L),
+
+                new Instruction('#',"q7",'#',"q8",Movement.R),
+                new Instruction('a',"q7",'a',"q7",Movement.R),
+                new Instruction('b',"q7",'b',"q7",Movement.R),
+
+                new Instruction('#',"q8",'b',"q9",Movement.R),
+                new Instruction('a',"q8",'a',"q8",Movement.R),
+                new Instruction('b',"q8",'b',"q8",Movement.R),
+
+                new Instruction('#',"q9",'b',"q10",Movement.L),
+                new Instruction('a',"q9",'a',"SK",Movement.R),
+                new Instruction('b',"q9",'b',"SK",Movement.R),
+
+                new Instruction('#',"q10",'#',"q11",Movement.L),
+                new Instruction('a',"q10",'a',"q10",Movement.L),
+                new Instruction('b',"q10",'b',"q10",Movement.L),
+
+                new Instruction('#',"q11",'#',"SK",Movement.R),
+                new Instruction('a',"q11",'a',"q12",Movement.L),
+                new Instruction('b',"q11",'b',"q12",Movement.L),
+
+                new Instruction('#',"q12",'#',"q0",Movement.R),
+                new Instruction('a',"q12",'a',"q12",Movement.L),
+                new Instruction('b',"q12",'b',"q12",Movement.L)
+            };
+        }
+
+        private static List<Instruction> GetPalindromeCheckingInstructionSet()
+        {
+            return new List<Instruction>
+            {
+                new Instruction('#',"q0",'#',"SA",Movement.N),
+                new Instruction('a',"q0",'#',"q1",Movement.R),
+                new Instruction('b',"q0",'#',"q4",Movement.R),
+                new Instruction('c',"q0",'#',"q7",Movement.R),
+
+                new Instruction('#',"q1",'#',"q2",Movement.L),
+                new Instruction('a',"q1",'a',"q1",Movement.R),
+                new Instruction('b',"q1",'b',"q1",Movement.R),
+                new Instruction('c',"q1",'c',"q1",Movement.R),
+
+                new Instruction('#',"q2",'#',"SA",Movement.R),
+                new Instruction('a',"q2",'#',"q3",Movement.L),
+                new Instruction('b',"q2",'b',"SN",Movement.R),
+                new Instruction('c',"q2",'c',"SN",Movement.R),
+
+                new Instruction('#',"q3",'#',"q0",Movement.R),
+                new Instruction('a',"q3",'a',"q3",Movement.L),
+                new Instruction('b',"q3",'b',"q3",Movement.L),
+                new Instruction('c',"q3",'c',"q3",Movement.L),
+
+                new Instruction('#',"q4",'#',"q5",Movement.L),
+                new Instruction('a',"q4",'a',"q4",Movement.R),
+                new Instruction('b',"q4",'b',"q4",Movement.R),
+                new Instruction('c',"q4",'c',"q4",Movement.R),
+
+                new Instruction('#',"q5",'#',"SA",Movement.R),
+                new Instruction('a',"q5",'a',"SN",Movement.R),
+                new Instruction('b',"q5",'#',"q6",Movement.L),
+                new Instruction('c',"q5",'c',"SN",Movement.R),
+
+                new Instruction('#',"q6",'#',"q0",Movement.R),
+                new Instruction('a',"q6",'a',"q6",Movement.L),
+                new Instruction('b',"q6",'b',"q6",Movement.L),
+                new Instruction('c',"q6",'c',"q6",Movement.L),
+
+                new Instruction('#',"q7",'#',"q8",Movement.L),
+                new Instruction('a',"q7",'a',"q7",Movement.R),
+                new Instruction('b',"q7",'b',"q7",Movement.R),
+                new Instruction('c',"q7",'c',"q7",Movement.R),
+
+                new Instruction('#',"q8",'#',"SA",Movement.R),
+                new Instruction('a',"q8",'a',"SN",Movement.R),
+                new Instruction('b',"q8",'b',"SN",Movement.R),
+                new Instruction('c',"q8",'#',"q9",Movement.L),
+
+                new Instruction('#',"q9",'#',"q0",Movement.R),
+                new Instruction('a',"q9",'a',"q9",Movement.L),
+                new Instruction('b',"q9",'b',"q9",Movement.L),
+                new Instruction('c',"q9",'c',"q9",Movement.L)
+            };
+        }
+
         public static PurringMachine GetDefaultMachine()
         {
             PurringMachine m = new PurringMachine();
             const bool fromLeft = false;
-            m.SetInstructions(GetDefaultInstructionSet(), fromLeft);
+            m.SetInstructions(GetIncrementBinaryValueInstructionSet(), fromLeft);
             m.SetTapeData("1111");
             m.Reset();
             return m;
