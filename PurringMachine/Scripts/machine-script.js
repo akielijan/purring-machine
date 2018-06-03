@@ -74,6 +74,8 @@ $('#run').on('click', function () {
             updateTape();
         }
     });
+
+    fireworkCounter = 0;
 });
 
 $('#reset').on('click', function () {
@@ -124,6 +126,7 @@ function updateTape() {
             middleTapeElement.addClass(className);
 
             if (className === "positive-div" || className === "neutral-div") {
+                window.clearTimeout(loopTimeout);
                 loop();
             }
         }

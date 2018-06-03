@@ -1,11 +1,13 @@
-﻿// when animating on canvas, it is best to use requestAnimationFrame instead of setTimeout or setInterval
+﻿var loopTimeout;
+
+// when animating on canvas, it is best to use requestAnimationFrame instead of setTimeout or setInterval
 // not supported in all browsers though and sometimes needs a prefix, so we need a shim
 window.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
         function (callback) {
-            window.setTimeout(callback, 500 / 60);
+            loopTimeout = window.setTimeout(callback, 1000 / 60);
         };
 })();
 
@@ -194,6 +196,8 @@ function createParticles(x, y) {
     }
 }
 
+var fireworkCounter = 0;
+
 // main demo loop
 function loop() {
     // this function will run endlessly with requestAnimationFrame
@@ -231,10 +235,11 @@ function loop() {
     }
 
     // launch fireworks automatically to random coordinates, when the mouse isn't down
-    if (timerTick >= timerTotal) {
+    if (timerTick >= timerTotal && fireworkCounter < 5) {
         if (!mousedown) {
             // start the firework at the bottom middle of the screen, then set the random target coordinates, the random y coordinates will be set within the range of the top half of the screen
             fireworks.push(new Firework(cw / 2, ch, random(0, cw), random(0, ch / 2)));
+            fireworkCounter++;
             timerTick = 0;
         }
     } else {
