@@ -10,11 +10,15 @@
 <body style="height:100vh; margin:0px; padding:0px; background-image: url('../Content/Img/background_smaller.jpg'); background-size: auto">
     <div class="container-fluid" style="height:100vh;">
         <div class="row">
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <canvas id="canvas"></canvas>
+            </div>
             <div class="col-md-4" style="height:100vh; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); background-color:white">
                 @RenderBody()
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <canvas id="rightFireworksPanel"></canvas>
+            </div>
         </div>
     </div>
 
