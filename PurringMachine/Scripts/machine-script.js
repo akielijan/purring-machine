@@ -154,7 +154,7 @@ function parseTableRows(tableSelector) {
 }
 
 function validateInstruction(evt, newValue) {
-    var statePattern = /^[a-zA-Z0-9]*$/;
+    var statePattern = /^[a-zA-Z0-9]{1,4}$/;
     var alphabetPattern = /^[a-zA-Z0-9#]$/;
     var instructionPattern = /^[a-zA-Z0-9#]\s(\S){1,4}\s(L|R|N)$/;
 
