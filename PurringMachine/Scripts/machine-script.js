@@ -61,7 +61,7 @@ $('#run').on('click', function () {
     $.get({
         url: '/Home/RunMachine',
         success: function (data, textStatus, xhr) {
-            console.log(data.Data);
+            $('#fullTape').text(data.Data);
             updateTape();
         }
     });
@@ -81,9 +81,10 @@ $('#nextStep').on('click', function () {
     $.get({
         url: '/Home/NextStep',
         success: function (data, textStatus, xhr) {
-            console.log(data.Data);
+            $('#fullTape').text(data.Data);
             updateTape();
-            //if (!data.Success) -> do smth when machine has stopped
+            if (!data.Success)
+                alert("Machine has stopped, reset to continue!");
         }
     });
 });
@@ -93,7 +94,6 @@ function updateTape() {
     $.get({
         url: '/Home/GetTapeData?n=' + characters, //todo: setup parameter somewhere else
         success: function (data, textStatus, xhr) {
-            console.log(data.Data);
             var newTapeData = data.Data;
             for (var i = 0; i < characters; ++i) {
                 $('#tapeSymbol' + i).text(newTapeData[i]);
@@ -104,7 +104,6 @@ function updateTape() {
     $.get({
         url: '/Home/GetFinishStatusStyleClassName',
         success: function (data, textStatus, xhr) {
-            console.log(data.Data);
             var className = data.Data;
             var middleTapeElement = $('#middleTapeElement');
 

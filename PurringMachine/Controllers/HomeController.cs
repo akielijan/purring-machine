@@ -22,6 +22,8 @@ namespace PurringMachine.Controllers
                 SaveMachineState();
             }
 
+            ViewData["initTapeData"] = new string(Machine.Tape.ToArray());
+
             return View();
         }
 
@@ -54,7 +56,7 @@ namespace PurringMachine.Controllers
             LoadMachineState();
             if (Machine.IsFinished())
             {
-                return Json(new { Data = "The machine has stopped", Success = false}, JsonRequestBehavior.AllowGet);
+                return Json(new { Data = new string(Machine.Tape.ToArray()), Success = false}, JsonRequestBehavior.AllowGet);
             }
 
             Machine.ProcessInstruction();
