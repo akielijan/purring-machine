@@ -111,6 +111,11 @@ function updateTape() {
 }
 
 $('#saveSettings').on('click', function () {
+    if ($('.invalid').length > 0) {
+        alert("Invalid data in instructions table.");
+        $('.invalid')[0].focus();
+        return;
+    }
     var instructionList = parseTableRows('#instructions-table');
     var fromLeft = $("input:radio[name='radio-group']:checked").val(); //todo: actually get the value from the page
     var inputData = $('#inputData').val(); //todo: actually get the value of the input
@@ -126,6 +131,7 @@ $('#saveSettings').on('click', function () {
         data: d,
         success: function (data, textStatus, xhr) {
             console.log(data.Data);
+            location.href = '/Home/Index';
         }
     });
 });
