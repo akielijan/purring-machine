@@ -78,14 +78,20 @@
         <div class="col-md-2 col-xs-2"></div>
     </div>
 
+    @{ 
+        const int SYMBOL_COLUMN_WIDTH = 25;
+        const int STATE_COLUMN_WIDTH = 100;
+        var availableStates = machine.Instructions.GroupBy(i => i.state);
+        string tableWidth = $"{SYMBOL_COLUMN_WIDTH + availableStates.Count() * STATE_COLUMN_WIDTH}px";
+    }
     <div class="row" style="height:27%;">
         <div class="col-md-2 col-xs-2" ></div>
         <div class="col-md-8 col-xs-8" style="height:100%; overflow: auto; padding:0px !important">
-            <table id="instructions-table" style="width:250px; margin:auto;">
+            <table id="instructions-table" style="width:@tableWidth; margin:auto;">
                 <tr>
                     <th></th>
 
-                    @foreach (var state in machine.Instructions.GroupBy(i => i.state))
+                    @foreach (var state in availableStates)
                     {
                         <td class="state">@state.Key</td>
                     }

@@ -256,6 +256,62 @@ namespace PurringMachine.Models
             };
         }
 
+        private static List<Instruction> GetPalindromeCheckingInstructionSet()
+        {
+            return new List<Instruction>
+            {
+                new Instruction('#',"q0",'#',"SA",Movement.N),
+                new Instruction('a',"q0",'#',"q1",Movement.R),
+                new Instruction('b',"q0",'#',"q4",Movement.R),
+                new Instruction('c',"q0",'#',"q7",Movement.R),
+
+                new Instruction('#',"q1",'#',"q2",Movement.L),
+                new Instruction('a',"q1",'a',"q1",Movement.R),
+                new Instruction('b',"q1",'b',"q1",Movement.R),
+                new Instruction('c',"q1",'c',"q1",Movement.R),
+
+                new Instruction('#',"q2",'#',"SA",Movement.R),
+                new Instruction('a',"q2",'#',"q3",Movement.L),
+                new Instruction('b',"q2",'b',"SN",Movement.R),
+                new Instruction('c',"q2",'c',"SN",Movement.R),
+
+                new Instruction('#',"q3",'#',"q0",Movement.R),
+                new Instruction('a',"q3",'a',"q3",Movement.L),
+                new Instruction('b',"q3",'b',"q3",Movement.L),
+                new Instruction('c',"q3",'c',"q3",Movement.L),
+
+                new Instruction('#',"q4",'#',"q5",Movement.L),
+                new Instruction('a',"q4",'a',"q4",Movement.R),
+                new Instruction('b',"q4",'b',"q4",Movement.R),
+                new Instruction('c',"q4",'c',"q4",Movement.R),
+
+                new Instruction('#',"q5",'#',"SA",Movement.R),
+                new Instruction('a',"q5",'a',"SN",Movement.R),
+                new Instruction('b',"q5",'#',"q6",Movement.L),
+                new Instruction('c',"q5",'c',"SN",Movement.R),
+
+                new Instruction('#',"q6",'#',"q0",Movement.R),
+                new Instruction('a',"q6",'a',"q6",Movement.L),
+                new Instruction('b',"q6",'b',"q6",Movement.L),
+                new Instruction('c',"q6",'c',"q6",Movement.L),
+
+                new Instruction('#',"q7",'#',"q8",Movement.L),
+                new Instruction('a',"q7",'a',"q7",Movement.R),
+                new Instruction('b',"q7",'b',"q7",Movement.R),
+                new Instruction('c',"q7",'c',"q7",Movement.R),
+
+                new Instruction('#',"q8",'#',"SA",Movement.R),
+                new Instruction('a',"q8",'a',"SN",Movement.R),
+                new Instruction('b',"q8",'b',"SN",Movement.R),
+                new Instruction('c',"q8",'#',"q9",Movement.L),
+
+                new Instruction('#',"q9",'#',"q0",Movement.R),
+                new Instruction('a',"q9",'a',"q9",Movement.L),
+                new Instruction('b',"q9",'b',"q9",Movement.L),
+                new Instruction('c',"q9",'c',"q9",Movement.L)
+            };
+        }
+
         public static PurringMachine GetDefaultMachine()
         {
             PurringMachine m = new PurringMachine();
