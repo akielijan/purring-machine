@@ -100,6 +100,22 @@ function updateTape() {
             }
         }
     });
+
+    $.get({
+        url: '/Home/GetFinishStatusStyleClassName',
+        success: function (data, textStatus, xhr) {
+            console.log(data.Data);
+            var className = data.Data;
+            var middleTapeElement = $('#middleTapeElement');
+
+            middleTapeElement.removeClass("rainbow-div");
+            middleTapeElement.removeClass("neutral-div");
+            middleTapeElement.removeClass("negative-div");
+            middleTapeElement.removeClass("positive-div");
+
+            middleTapeElement.addClass(className);
+        }
+    });
 }
 
 $('#saveSettings').on('click', function () {

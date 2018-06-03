@@ -80,6 +80,27 @@ namespace PurringMachine.Controllers
             return Json(new { Data = GetCharactersFromTape(n), Success = true }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult GetFinishStatusStyleClassName()
+        {
+            LoadMachineState();
+            string className;
+
+            if (Machine.IsFinished())
+            {
+                if (Machine.IsFinishStatePositive())
+                    className = "positive-div";
+                else if (Machine.IsFinishStateNeutral())
+                    className = "neutral-div";
+                else
+                    className = "negative-div";
+            }
+            else
+                className = "rainbow-div";
+
+            return Json(new { Data = className, Success = true }, JsonRequestBehavior.AllowGet);
+        }
+
         public string GetCharactersFromTape(int characterCount)
         {
             List<char> tapeData;

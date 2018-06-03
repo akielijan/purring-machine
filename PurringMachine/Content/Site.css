@@ -31,6 +31,21 @@ table#statesTable, th, td {
     border: 1px solid black;
 }
 
+.positive-div{
+    border: 2px solid #00CC00;
+    border-radius: 7px;
+}
+
+.negative-div{
+    border: 2px solid red;
+    border-radius: 7px;
+}
+
+.neutral-div{
+    border: 2px solid orange;
+    border-radius: 7px;
+}
+
 .rainbow-div{
     border: 2px solid black;
     border-radius: 7px;

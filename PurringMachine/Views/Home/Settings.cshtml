@@ -168,21 +168,30 @@
                     b) SK - neutral finish state ∈ states<br />
                     c) SA - positive finish state ∈ states<br />
                     d) SN - negative finish state ∈ states<br />
-                    e) if you want to remove instruction/column/row, insert "-" instead of instruction/state/alphabet symbol
+                    e) q0 - start state ∈ states<br />
+                    f) if you want to remove instruction/column/row, insert "-" instead of instruction/state/alphabet symbol
                 </p>
                 <p>
-                    <b>3. Instruction table:</b><br />
+                    <b>3. Instructions set:</b><br />
                     a) First column - symbol on tape ∈ alphabet<br />
                     b) First row - states ∈ state<br />
                     c) Other cells - instructions for specified state and symbol on tape<br />
+                    d) Left/Right - start head position<br />
                 </p>
                 <p>
-                    <b>4. Instructions:</b><br/>
+                    <b>4. Instruction:</b><br/>
                     Format: a qN m<br />
                     a - symbol to write on tape ∈ alphabet<br />
                     qN - next state for machine ∈ states<br />
                     m - movement to do ∈ move<br />
                     spaces - only one, single, white character, nothing more<br />
+                </p>
+                <p>
+                    <b>5. Run:</b><br />
+                    a) Next - run one next instruction<br/>
+                    b) Run - run machine<br/>
+                    c) Reset - set state to q0 and head position to start position<br />
+                    d) Green/yellow/red border color - positive/neutral/negative finish
                 </p>
             </div>
         </div>
