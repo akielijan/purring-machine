@@ -16,9 +16,9 @@ namespace PurringMachine.Models
 
         private string currentState;
         private int currentPositionOnTape;
-        private List<char> tape;
-        private List<Instruction> instructions;
-        private bool startFromLeft;
+        public List<char> Tape { get; private set; }
+        public List<Instruction> Instructions { get; private set; }
+        public bool StartFromLeft { get; private set; }
 
         public PurringMachine()
         {
@@ -28,29 +28,29 @@ namespace PurringMachine.Models
         private void Initialize()
         {
             currentState = START_STATE_SYMBOL;
-            instructions = new List<Instruction>();
-            tape = new List<char>();
+            Instructions = new List<Instruction>();
+            Tape = new List<char>();
             currentPositionOnTape = NO_TAPE;
         }
 
         public void SetInstructions(List<Instruction> i, bool fromLeft)
         {
-            instructions = new List<Instruction>(i);
-            startFromLeft = fromLeft;
+            Instructions = new List<Instruction>(i);
+            StartFromLeft = fromLeft;
         }
 
         public void ClearInstructions()
         {
-            instructions.Clear();
+            Instructions.Clear();
         }
 
         private int FindFirstNonEmptyElement(bool fromLeft)
         {
             if (fromLeft)
             {
-                for (int i = 0; i < tape.Count; i++)
+                for (int i = 0; i < Tape.Count; i++)
                 {
-                    if (tape[i] != EMPTY_SYMBOL)
+                    if (Tape[i] != EMPTY_SYMBOL)
                     {
                         return i;
                     }
@@ -58,9 +58,9 @@ namespace PurringMachine.Models
             }
             else
             {
-                for (int i = tape.Count - 1; i >= 0; i--)
+                for (int i = Tape.Count - 1; i >= 0; i--)
                 {
-                    if (tape[i] != EMPTY_SYMBOL)
+                    if (Tape[i] != EMPTY_SYMBOL)
                     {
                         return i;
                     }
@@ -72,24 +72,24 @@ namespace PurringMachine.Models
 
         public void SetTapeData(IEnumerable<char> data)
         {
-            tape = new List<char>(data);
+            Tape = new List<char>(data);
         }
 
         public void AddTapeData(char symbol, bool toEnd)
         {
             if (toEnd)
             {
-                tape.Add(symbol);
+                Tape.Add(symbol);
             }
             else
             {
-                tape.Insert(0, symbol);
+                Tape.Insert(0, symbol);
             }
         }
 
         public void ClearTape()
         {
-            tape.Clear();
+            Tape.Clear();
             currentPositionOnTape = NO_TAPE;
         }
 
@@ -111,8 +111,8 @@ namespace PurringMachine.Models
         {
             try
             {
-                Instruction instruction = instructions.First(i => i.symbol == tape[currentPositionOnTape] && i.state == currentState);
-                tape[currentPositionOnTape] = instruction.symbolToWrite;
+                Instruction instruction = Instructions.First(i => i.symbol == Tape[currentPositionOnTape] && i.state == currentState);
+                Tape[currentPositionOnTape] = instruction.symbolToWrite;
                 currentState = instruction.nextState;
                 Move(instruction.movement);
             }
@@ -129,7 +129,7 @@ namespace PurringMachine.Models
                 case Movement.R:
                 {
                     currentPositionOnTape++;
-                    if (currentPositionOnTape == tape.Count)
+                    if (currentPositionOnTape == Tape.Count)
                     {
                         AddTapeData(EMPTY_SYMBOL, true);
                     }
@@ -155,7 +155,7 @@ namespace PurringMachine.Models
         public void Reset()
         {
             currentState = START_STATE_SYMBOL;
-            currentPositionOnTape = FindFirstNonEmptyElement(startFromLeft);
+            currentPositionOnTape = FindFirstNonEmptyElement(StartFromLeft);
         }
 
         public bool IsFinished()
@@ -178,9 +178,34 @@ namespace PurringMachine.Models
             return currentState == NEUTRAL_FINISH_STATE_SYMBOL;
         }
 
+        [Obsolete("Please use Tape property instead.")]
         public List<char> GetTape()
         {
-            return tape;
+            return Tape;
+        }
+
+        private static List<Instruction> GetDefaultInstructionSet()
+        {
+            return new List<Instruction>
+            {
+                new Instruction ('#',"q0",'#',"q0",Movement.L),
+                new Instruction ('0',"q0",'1',"SK",Movement.L),
+                new Instruction ('1',"q0",'0',"q1",Movement.L),
+
+                new Instruction ('#',"q1",'1',"SK",Movement.L),
+                new Instruction ('0',"q1",'1',"SK",Movement.L),
+                new Instruction ('1',"q1",'0',"q1",Movement.L)
+            };
+        }
+
+        public static PurringMachine GetDefaultMachine()
+        {
+            PurringMachine m = new PurringMachine();
+            const bool fromLeft = false;
+            m.SetInstructions(GetDefaultInstructionSet(), fromLeft);
+            m.SetTapeData("1111");
+            m.Reset();
+            return m;
         }
     }
 }

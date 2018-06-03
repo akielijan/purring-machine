@@ -1,7 +1,11 @@
 ﻿@{
     ViewBag.Title = "Purring Turing - settings";
+    PurringMachine.Models.PurringMachine machine = Session["Machine"] as PurringMachine.Models.PurringMachine;
+    if (machine == null)
+    {
+        Session["Machine"] = machine = PurringMachine.Models.PurringMachine.GetDefaultMachine();
+    }
 }
-
 
 <div class="row" style="height:5%;"></div>
 
@@ -12,112 +16,129 @@
     </div>
     <div class="col-md-2 col-xs-2"></div>
 </div>
+@{ 
+    string tapeData = new string(machine.Tape.ToArray());
+}
+    <div class="row" style="height:10%;">
+        <div class="col-md-2 col-xs-2"></div>
+        <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
 
-<div class="row" style="height:10%;">
-    <div class="col-md-2 col-xs-2"></div>
-    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
-        <input type="text" id="inputData"/>
-    </div>
-    <div class="col-md-2 col-xs-2"></div>
-</div>
-
-<div class="row" style="height:5%;">
-    <div class="col-md-2 col-xs-2"></div>
-    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
-        Instructions:
-    </div>
-    <div class="col-md-2 col-xs-2"></div>
-</div>
-
-<div class="row" style="height:10%;">
-    <div class="col-md-2 col-xs-2"></div>
-    <div class="col-md-4 col-xs-4" style="display: flex; flex-direction: column; justify-content: center; height:100%">
-        <div class="cnt">
-            <ul>
-                <li>
-                    <input type="radio" id="lRadio" name="radio-group" value="left" checked>
-                    <label for="lRadio">Left</label>
-                    <div class="check"></div>
-                </li>
-            </ul>
+            <input type="text" id="inputData" value="@tapeData" />
         </div>
+        <div class="col-md-2 col-xs-2"></div>
     </div>
-    <div class="col-md-4 col-xs-4" style="display: flex; flex-direction: column; justify-content: center; height:100%">
-        <div class="cnt">
-            <ul>
-                <li>
-                    <input type="radio" id="rRadio" name="radio-group" value="right" checked>
-                    <label for="rRadio">Right</label>
-                    <div class="check"></div>
-                </li>
-            </ul>
+
+    <div class="row" style="height:5%;">
+        <div class="col-md-2 col-xs-2"></div>
+        <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+            Instructions:
         </div>
+        <div class="col-md-2 col-xs-2"></div>
     </div>
-    <div class="col-md-2 col-xs-2"></div>
-</div>
 
-<div class="row" style="height:30%;">
-    <div class="col-md-2 col-xs-2"></div>
-    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
-        <table id="instructions-table" style="width:100%">
-            <tr>
-                <th></th>
-                <td class="state">q0</td>
-                <td class="state">q1</td>
-            </tr>
-            <tr>
-                <td class="alphabet">#</td>
-                <td># q0 L</td>
-                <td>1 SK L</td>
-            </tr>
-            <tr>
-                <td class="alphabet">0</td>
-                <td>1 SK L</td>
-                <td>1 SK L</td>
-            </tr>
-            <tr>
-                <td class="alphabet">1</td>
-                <td>0 q1 L</td>
-                <td>0 q1 L</td>
-            </tr>
-        </table>
-    </div>
-    <div class="col-md-2 col-xs-2"></div>
-</div>
+    @{
+        string fromLeft = "", fromRight = "";
+        if (machine.StartFromLeft)
+        {
+            fromLeft = "checked";
+        }
+        else
+        {
+            fromRight = "checked";
+        }
+    }
 
-<div class="row" style="height:10%;">
-    <div class="col-md-2 col-xs-2"></div>
-    <div class="col-md-4 col-xs-4" style="display: flex; flex-direction: column; justify-content: center; height:100%">
-        <a id="addRowButton" href="#0" class="button">
-            <span>+ Row</span>
-        </a>
+    <div class="row" style="height:10%;">
+        <div class="col-md-2 col-xs-2"></div>
+        <div class="col-md-4 col-xs-4" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+            <div class="cnt">
+                <ul>
+                    <li>
+                        <input type="radio" id="lRadio" name="radio-group" value="left" @fromLeft>
+                        <label for="lRadio">Left</label>
+                        <div class="check"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4 col-xs-4" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+            <div class="cnt">
+                <ul>
+                    <li>
+                        <input type="radio" id="rRadio" name="radio-group" value="right" @fromRight>
+                        <label for="rRadio">Right</label>
+                        <div class="check"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-2"></div>
     </div>
-    <div class="col-md-4 col-xs-4" style="display: flex; flex-direction: column; justify-content: center; height:100%">
-        <a id="addColButton" href="#0" class="button">
-            <span>+ Col</span>
-        </a>
-    </div>
-    <div class="col-md-2 col-xs-2"></div>
-</div>
 
-<div class="row" style="height:10%;">
-    <div class="col-md-2 col-xs-2"></div>
-    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
-        <a href="#0" class="button">
-            <span>Help</span>
-        </a>
-    </div>
-    <div class="col-md-2 col-xs-2"></div>
-</div>
+    <div class="row" style="height:30%;">
+        <div class="col-md-2 col-xs-2"></div>
+        <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+            <table id="instructions-table" style="width:100%">
+                <tr>
+                    <th></th>
 
-<div class="row" style="height:10%;">
-    <div class="col-md-2 col-xs-2"></div>
-    <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
-        <a href="#0" class="button" id="saveSettings">
-            <span>Save</span>
-        </a>
-    </div>
-    <div class="col-md-2 col-xs-2"></div>
-</div>
+                    @foreach (var state in machine.Instructions.GroupBy(i => i.state))
+                    {
+                        <td class="state">@state.Key</td>
+                    }
+                    @*<td class="state">q0</td>
+                        <td class="state">q1</td>*@
+                </tr>
+                @foreach (var symbol in machine.Instructions.GroupBy(i => i.symbol))
+                {
+                    <tr>
+                        <td class="alphabet">@symbol.Key</td>
 
-<div class="row" style="height:5%;"></div>
+                        @foreach (var instruction in symbol.Select(x => $"{x.symbolToWrite} {x.nextState} {x.movement}"))
+                        {
+                            <td>@instruction</td>
+                        }
+
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="col-md-2 col-xs-2"></div>
+    </div>
+
+    <div class="row" style="height:10%;">
+        <div class="col-md-2 col-xs-2"></div>
+        <div class="col-md-4 col-xs-4" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+            <a id="addRowButton" href="#0" class="button">
+                <span>+ Row</span>
+            </a>
+        </div>
+        <div class="col-md-4 col-xs-4" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+            <a id="addColButton" href="#0" class="button">
+                <span>+ Col</span>
+            </a>
+        </div>
+        <div class="col-md-2 col-xs-2"></div>
+    </div>
+
+    <div class="row" style="height:10%;">
+        <div class="col-md-2 col-xs-2"></div>
+        <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+            <a href="#0" class="button">
+                <span>Help</span>
+            </a>
+        </div>
+        <div class="col-md-2 col-xs-2"></div>
+    </div>
+
+    <div class="row" style="height:10%;">
+        <div class="col-md-2 col-xs-2"></div>
+        <div class="col-md-8 col-xs-8" style="display: flex; flex-direction: column; justify-content: center; height:100%">
+            <a href="#0" class="button" id="saveSettings">
+                <span>Save</span>
+            </a>
+        </div>
+        <div class="col-md-2 col-xs-2"></div>
+    </div>
+
+    <div class="row" style="height:5%;"></div>

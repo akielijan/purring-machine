@@ -11,18 +11,14 @@ namespace PurringMachine.Controllers
 {
     public class HomeController : Controller
     {
-        private Machine machine;
+        public Machine Machine { get; private set; }
 
         public ActionResult Index()
         {
             LoadMachineState();
-            if (machine == null)
+            if (Machine == null)
             {
-                machine = new Machine();
-                const bool fromLeft = false;
-                machine.SetInstructions(GetDefaultInstructionSet(), fromLeft);
-                machine.SetTapeData("1111");
-                machine.Reset();
+                Machine = Machine.GetDefaultMachine();
                 SaveMachineState();
             }
 
@@ -38,16 +34,16 @@ namespace PurringMachine.Controllers
         public ActionResult RunMachine()
         {
             LoadMachineState();
-            machine.Run();
+            Machine.Run();
             SaveMachineState();
-            return Json(new { Data = new string(machine.GetTape().ToArray()) }, JsonRequestBehavior.AllowGet);
+            return Json(new { Data = new string(Machine.Tape.ToArray()) }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult ResetMachine()
         {
             LoadMachineState();
-            machine.Reset();
+            Machine.Reset();
             SaveMachineState();
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
@@ -56,22 +52,22 @@ namespace PurringMachine.Controllers
         public ActionResult NextStep()
         {
             LoadMachineState();
-            if (machine.IsFinished())
+            if (Machine.IsFinished())
             {
                 return Json(new { Data = "The machine has stopped", Success = false}, JsonRequestBehavior.AllowGet);
             }
 
-            machine.ProcessInstruction();
+            Machine.ProcessInstruction();
             SaveMachineState();
-            return Json(new { Data = new string(machine.GetTape().ToArray()), Success = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { Data = new string(Machine.Tape.ToArray()), Success = true }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult SaveSettings(string instructions, string input, bool fromLeft)
         {
             LoadMachineState();
-            machine.SetInstructions(ParseInstructions(instructions), fromLeft);
-            machine.SetTapeData(input);
+            Machine.SetInstructions(ParseInstructions(instructions), fromLeft);
+            Machine.SetTapeData(input);
             SaveMachineState();
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
@@ -81,28 +77,14 @@ namespace PurringMachine.Controllers
             return Newtonsoft.Json.JsonConvert.DeserializeObject<List<Instruction>>(instructions);
         }
 
-        private List<Instruction> GetDefaultInstructionSet()
-        {
-            return new List<Instruction>
-            {
-                new Instruction ('#',"q0",'#',"q0",Movement.L),
-                new Instruction ('0',"q0",'1',"SK",Movement.L),
-                new Instruction ('1',"q0",'0',"q1",Movement.L),
-
-                new Instruction ('#',"q1",'1',"SK",Movement.L),
-                new Instruction ('0',"q1",'1',"SK",Movement.L),
-                new Instruction ('1',"q1",'0',"q1",Movement.L)
-            };
-        }
-
         private void LoadMachineState()
         {
-            this.machine = GetMachine();
+            this.Machine = GetMachine();
         }
 
         private void SaveMachineState()
         {
-            SetMachine(this.machine);
+            SetMachine(this.Machine);
         }
 
         private Machine GetMachine()

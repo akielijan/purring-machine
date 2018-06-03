@@ -114,15 +114,16 @@ $('#saveSettings').on('click', function () {
 });
 
 function parseTableRows(tableSelector) {
-    var table = $(tableSelector + " tr"); //table tr selector
+    var table = document.getElementById("instructions-table");
+    var tableRows = $(tableSelector + " tr"); //table tr selector
     var list = [];
-    var colCount = $(tableSelector).find("tr:first td").length;
-    table.each(function () {
+    var colCount = table.rows[0].cells.length;
+    tableRows.each(function () {
         if (!this.rowIndex) return; // skip first row
         var row = this;
         var symbol = row.cells[0].innerText;
-        for (var i = 1; i <= colCount; ++i) { //because first column is <th> instead of <td>
-            var state = table[0].cells[i].innerText;
+        for (var i = 1; i < colCount; ++i) { //because first column is <th> instead of <td>
+            var state = tableRows[0].cells[i].innerText;
             var instr = row.cells[i].innerText.split(" ");
             list.push({
                 "symbol": symbol,
