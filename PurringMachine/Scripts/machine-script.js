@@ -12,36 +12,7 @@
         }
     });
 
-    $('table td').on('validate', function (evt, newValue) {
-        var statePattern = /^[a-zA-Z0-9]*$/;
-        var alphabetPattern = /^[a-zA-Z0-9#]$/;
-        var instructionPattern = /^[a-zA-Z0-9#]\s(\S){1,4}\s(L|R|N)$/;
-
-        if ($(this).hasClass("state")) {
-            if (!statePattern.test(newValue)) {
-                $(this).addClass("invalid");
-            }
-            else {
-                $(this).removeClass("invalid");
-            }
-        }
-        else if ($(this).hasClass("alphabet")) {
-            if (!alphabetPattern.test(newValue)) {
-                $(this).addClass("invalid");
-            }
-            else {
-                $(this).removeClass("invalid");
-            }
-        }
-        else {
-            if (!instructionPattern.test(newValue)) {
-                $(this).addClass("invalid");
-            }
-            else {
-                $(this).removeClass("invalid");
-            }
-        }
-    });
+    $('table td').on('validate', validateInstruction);
 
     $('.square').each(function () {
         $(this).height($(this).width());
@@ -61,6 +32,7 @@
 
         newRow.cells[0].classList.add("alphabet");
 
+        $('table td').on('validate', validateInstruction);
         $('#instructions-table').editableTableWidget();
     });
 
@@ -80,6 +52,7 @@
 
         table.rows[0].cells[cols].classList.add("state");
 
+        $('table td').on('validate', validateInstruction);
         $('#instructions-table').editableTableWidget();
     });
 });
@@ -178,4 +151,27 @@ function parseTableRows(tableSelector) {
     });
     console.log(list);
     return list;
+}
+
+function validateInstruction(evt, newValue) {
+    var statePattern = /^[a-zA-Z0-9]{1,4}$/;
+    var alphabetPattern = /^[a-zA-Z0-9#]$/;
+    var instructionPattern = /^[a-zA-Z0-9#]\s(\S){1,4}\s(L|R|N)$/;
+
+    var pattern;
+
+    if ($(this).hasClass("state")) {
+        pattern = statePattern;
+        
+    } else if ($(this).hasClass("alphabet")) {
+        pattern = alphabetPattern;
+    } else {
+        pattern = instructionPattern;
+    }
+
+    if (!pattern.test(newValue)) {
+        $(this).addClass("invalid");
+    } else {
+        $(this).removeClass("invalid");
+    }
 }
