@@ -69,6 +69,7 @@ namespace PurringMachine.Controllers
             Machine.SetInstructions(ParseInstructions(instructions), fromLeft);
             Machine.SetTapeData(input);
             SaveMachineState();
+            Machine.Reset();
             return Json(new { Success = true }, JsonRequestBehavior.AllowGet);
         }
 
