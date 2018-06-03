@@ -89,6 +89,7 @@ $('#run').on('click', function () {
         url: '/Home/RunMachine',
         success: function (data, textStatus, xhr) {
             console.log(data.Data);
+            updateTape();
         }
     });
 });
@@ -98,6 +99,7 @@ $('#reset').on('click', function () {
         url: '/Home/ResetMachine',
         success: function (data, textStatus, xhr) {
             console.log("success: " + xhr.status);
+            updateTape();
         }
     });
 });
@@ -107,12 +109,32 @@ $('#nextStep').on('click', function () {
         url: '/Home/NextStep',
         success: function (data, textStatus, xhr) {
             console.log(data.Data);
+            updateTape();
             //if (!data.Success) -> do smth when machine has stopped
         }
     });
 });
 
+function updateTape() {
+    var characters = 5;
+    $.get({
+        url: '/Home/GetTapeData?n=' + characters, //todo: setup parameter somewhere else
+        success: function (data, textStatus, xhr) {
+            console.log(data.Data);
+            var newTapeData = data.Data;
+            for (var i = 0; i < characters; ++i) {
+                $('#tapeSymbol' + i).text(newTapeData[i]);
+            }
+        }
+    });
+}
+
 $('#saveSettings').on('click', function () {
+    if ($('.invalid').length > 0) {
+        alert("Invalid data in instructions table.");
+        $('.invalid')[0].focus();
+        return;
+    }
     var instructionList = parseTableRows('#instructions-table');
     var fromLeft = $("input:radio[name='radio-group']:checked").val(); //todo: actually get the value from the page
     var inputData = $('#inputData').val(); //todo: actually get the value of the input
@@ -128,6 +150,7 @@ $('#saveSettings').on('click', function () {
         data: d,
         success: function (data, textStatus, xhr) {
             console.log(data.Data);
+            location.href = '/Home/Index';
         }
     });
 });
