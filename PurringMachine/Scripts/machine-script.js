@@ -84,7 +84,7 @@ $('#nextStep').on('click', function () {
             $('#fullTape').text(data.Data);
             updateTape();
             if (!data.Success)
-                alert("Machine has stopped, reset to continue!");
+                $('#modalStopped').modal('toggle');
         }
     });
 });
@@ -119,7 +119,7 @@ function updateTape() {
 
 $('#saveSettings').on('click', function () {
     if ($('.invalid').length > 0) {
-        alert("Invalid data in instructions table.");
+        $('#modalInvalid').modal('toggle');
         $('.invalid')[0].focus();
         return;
     }
