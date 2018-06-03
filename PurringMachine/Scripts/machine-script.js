@@ -1,10 +1,21 @@
 ﻿$(document).ready(function () {
     $('#instructions-table').editableTableWidget();
 
+    $('#inputData').on('change', function(e) {
+        var tapePattern = /^[a-zA-Z0-9#]+$/;
+
+        if (!tapePattern.test($(this).val())) {
+            $(this).addClass("invalid");
+        }
+        else {
+            $(this).removeClass("invalid");
+        }
+    });
+
     $('table td').on('validate', function (evt, newValue) {
         var statePattern = /^[a-zA-Z0-9]*$/;
         var alphabetPattern = /^[a-zA-Z0-9#]$/;
-        var instructionPattern = /^[a-zA-Z0-9#]\s(\S)+\s(L|R|N)$/;
+        var instructionPattern = /^[a-zA-Z0-9#]\s(\S){1,4}\s(L|R|N)$/;
 
         if ($(this).hasClass("state")) {
             if (!statePattern.test(newValue)) {
@@ -48,6 +59,8 @@
             newCell.innerHTML = "-";
         }
 
+        newRow.cells[0].classList.add("alphabet");
+
         $('#instructions-table').editableTableWidget();
     });
 
@@ -55,11 +68,17 @@
         var table = document.getElementById("instructions-table");
         var cols = table.rows[0].cells.length;
         var rows = table.rows.length;
+        
+        var width = $('#instructions-table').width();
+        var newWidth = width + 50;
+        $('#instructions-table').width(newWidth);
 
         for (var i = 0; i < rows; i++) {
             var newCell = table.rows[i].insertCell(cols);
             newCell.innerHTML = "-";
         }
+
+        table.rows[0].cells[cols].classList.add("state");
 
         $('#instructions-table').editableTableWidget();
     });

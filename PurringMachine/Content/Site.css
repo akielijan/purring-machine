@@ -89,6 +89,12 @@ th {
 
 td {
     border-color: gray;
+    padding: 0 !important; 
+    width: 100px;
+}
+
+td.alphabet {
+    width: 25px;
 }
 
 .state{
@@ -101,6 +107,11 @@ td {
 
 .invalid{
     color: red;
+}
+
+#inputData{
+    font-size: 15px;
+    padding: 5px;
 }
 
 /*custom radio*/
