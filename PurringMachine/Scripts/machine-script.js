@@ -1,6 +1,8 @@
 ﻿$(document).ready(function () {
     $('#instructions-table').editableTableWidget();
 
+    $("*").on("click", function () { $('audio')[0].play(); });
+
     $('#inputData').on('change', function(e) {
         var tapePattern = /^[a-zA-Z0-9#]+$/;
 
