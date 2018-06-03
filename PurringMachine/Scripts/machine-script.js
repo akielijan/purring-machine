@@ -122,6 +122,10 @@ function updateTape() {
             middleTapeElement.removeClass("positive-div");
 
             middleTapeElement.addClass(className);
+
+            if (className === "positive-div" || className === "neutral-div") {
+                loop();
+            }
         }
     });
 }

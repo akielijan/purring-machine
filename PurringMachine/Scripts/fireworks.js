@@ -5,7 +5,7 @@ window.requestAnimFrame = (function () {
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
         function (callback) {
-            window.setTimeout(callback, 1000 / 60);
+            window.setTimeout(callback, 500 / 60);
         };
 })();
 
@@ -272,4 +272,4 @@ canvas.addEventListener('mouseup', function (e) {
 });
 
 // once the window loads, we are ready for some fireworks!
-window.onload = loop;
+//window.onload = loop;
